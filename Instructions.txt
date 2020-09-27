@@ -1,0 +1,153 @@
+install Slack, Visual Studio Code, Mysql workbench, Chrome, Postman
+
+VSC addons:
+ESLint, TSLint, CodeStream, GIT Graph, Prettier - Code Formatter, Project Manager
+
+
+sudo su
+----------GIT
+sudo apt install git;
+git config --global user.name "Yousef Samir";
+git config --global user.email "yousef.samir@coformatique.com";
+ssh-keygen;
+
+----------Apache SERVER
+sudo apt install apache2
+
+----------PHP
+sudo apt-get install software-properties-common;
+sudo add-apt-repository ppa:ondrej/php;
+sudo apt-get update;
+sudo apt install php5.6 php5.6-{mysql,pgsql,curl,gd,mcrypt,sqlite,xmlrpc,xsl,zip,mbstring};
+sudo apt install php7.0 php7.0-{mysql,pgsql,curl,gd,mcrypt,sqlite,xmlrpc,xsl,zip,mbstring};
+sudo apt install php7.1 php7.1-{mysql,pgsql,curl,gd,mcrypt,sqlite,xmlrpc,xsl,zip,mbstring};
+sudo apt install php7.2 php7.2-{mysql,pgsql,curl,gd,sqlite,xmlrpc,xsl,zip,mbstring};
+sudo apt install php7.3 php7.3-{mysql,pgsql,curl,gd,sqlite,xmlrpc,xsl,zip,mbstring};
+sudo apt install php7.4 php7.4-{mysql,pgsql,curl,gd,sqlite,xmlrpc,xsl,zip,mbstring};
+sudo a2enmod php7.2
+
+----------MYSQL
+sudo apt-get remove --purge mysql-server; 	=====> Remove if installed
+sudo apt-get purge mysql-server;
+sudo apt-get autoremove;
+sudo apt-get autoclean;
+sudo apt-get remove dbconfig-mysql;
+sudo apt-get dist-upgrade;
+
+sudo apt install mysql-server;
+
+sudo mysql_secure_installation utility
+Cu$t0mStrongP@ssw0rd
+sudo service mysql restart
+sudo mysql -uroot
+CREATE USER 'cofo'@'localhost' IDENTIFIED BY 'P@ssw0rd';
+GRANT ALL PRIVILEGES ON * . * TO 'cofo'@'localhost';
+FLUSH PRIVILEGES;
+quit;
+sudo service mysql restart
+
+----------PHPMYADMIN
+sudo apt-get install -y phpmyadmin
+sudo gedit /etc/apache2/apache2.conf
+
+Add
+```
+# Include phpmyadmin configurations:
+IncludeOptional /etc/phpmyadmin/apache.conf
+```
+
+sudo service apache2 restart
+
+=> Copy new account password to root account
+
+sudo mysql -uroot
+FLUSH PRIVILEGES;
+quit;
+
+----------COMPOSER
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');";
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;";
+php composer-setup.php;
+php -r "unlink('composer-setup.php');";
+sudo cp composer.phar /usr/bin/composer;
+sudo rm composer.phar;
+
+----------NODE
+sudo apt install curl;
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -;
+sudo apt-get install -y nodejs
+node --version;
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash;
+=======> Restart terminal <=======
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash;
+=======> Restart terminal <=======
+nvm install 10;
+nvm use 10;
+nvm alias default 10.19.0;
+
+----------YARN
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -;
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list;
+sudo apt-get update && sudo apt-get install yarn;
+yarn --version;
+
+----------FIREBASE
+npm install -g firebase-tools
+firebase login
+
+----------GCLOUD
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+sudo apt-get update && sudo apt-get install google-cloud-sdk
+gcloud init
+
+----------kubectl (kubernetes)
+sudo apt-get update && sudo apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+
+----------HASURA
+npm install -g hasura-cli
+
+----------HEROKU
+npm install -g heroku
+heroku --version
+heroku login
+
+
+---------Mongo
+
+
+---------DOCKER
+sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt-get update
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-key fingerprint 0EBFCD88
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo docker run hello-world
+
+
+----------Mount external HDD
+sudo mkdir /hdd
+sudo gedit /etc/fstab
+
+add
+```
+# Second Hard drive
+/dev/sda1    /hdd    ext4    defaults    0    0
+```
+
+sudo mount /hdd
+sudo chown -R username /hdd
+
+sudo sysctl fs.inotify.max_user_watches=524288
+
+--------FINALLy
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt autoremove
